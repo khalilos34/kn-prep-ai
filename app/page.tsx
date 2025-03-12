@@ -1,9 +1,5 @@
-import { Button } from "@heroui/react";
+import HomePage from "@/components/HomePgae";
 
 export default function Home() {
-  return (
-    <div>
-      <Button> Click me</Button>
-    </div>
-  );
+  return <HomePage />;
 }
