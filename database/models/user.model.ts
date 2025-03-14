@@ -76,7 +76,7 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     subscriptions: {
       id: String,
-      customer: String,
+      customerId: String,
       created: Date,
       status: String,
       startDate: Date,

@@ -21,6 +21,7 @@ import { useState } from "react";
 const Navbar = () => {
   const { data } = useSession();
   const user = data?.user as IUser;
+  console.log("data", data);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

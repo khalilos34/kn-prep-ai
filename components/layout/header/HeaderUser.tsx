@@ -19,8 +19,8 @@ const HeaderUser = ({ user }: { user: IUser }) => {
             as="button"
             avatarProps={{
               isBordered: true,
-              src: user?.profilePicture.url
-                ? user?.profilePicture.url
+              src: user?.profilePicture?.url
+                ? user?.profilePicture?.url
                 : "/images/default_user.png",
             }}
             className="transition-transform"
@@ -30,7 +30,7 @@ const HeaderUser = ({ user }: { user: IUser }) => {
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-bold">Signed in as</p>
+            <p className="font-bold">Signed in as profilePicture</p>
             <p className="font-bold">{user?.email}</p>
           </DropdownItem>
           <DropdownItem
