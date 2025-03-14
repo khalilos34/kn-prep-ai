@@ -11,7 +11,7 @@ export const register = async (
     name,
     email,
     password,
-    authProvider: [{ provider: "credentials", providerId: email }],
+    authProviders: [{ provider: "credentials", providerId: email }],
   });
   return newUser._id
     ? { created: true }
