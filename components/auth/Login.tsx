@@ -5,10 +5,12 @@ import { Button, Input, Link, Form, Divider } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { signIn } from "next-auth/react";
 import { useGenericSubmitHandler } from "../form/formSubmitHandler";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [isVisible, setIsVisible] = React.useState(false);
-
+  const router = useRouter();
   const toggleVisibility = () => setIsVisible(!isVisible);
   const { handleSubmit, loading } = useGenericSubmitHandler(async (data) => {
     const res = await signIn("credentials", {
@@ -17,7 +19,13 @@ export default function Login() {
       password: data.password,
       callbackUrl: "/app/dashboard",
     });
-    console.log(res);
+    if (res?.error) {
+      return toast.error(res?.error);
+    }
+    if (res?.ok) {
+      toast.success("User registered successfully!");
+      router.push("/app/dashboard");
+    }
   });
   const handleGithubLogin = async () =>
     await signIn("github", { callbackUrl: "/app/dashboard" });

@@ -5,12 +5,23 @@ import { Button, Input, Link, Form } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { registerUser } from "@/actions/auth.action";
 import { useGenericSubmitHandler } from "../form/formSubmitHandler";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const router = useRouter();
   const toggleVisibility = () => setIsVisible(!isVisible);
   const { handleSubmit, loading } = useGenericSubmitHandler(async (data) => {
     const res = await registerUser(data.name, data.email, data.password);
+
+    if (res?.error) {
+      return toast.error(res?.error.message);
+    }
+    if (res?.created) {
+      toast.success("User registered successfully!");
+      router.push("/login");
+    }
   });
 
   return (
