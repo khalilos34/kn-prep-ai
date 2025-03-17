@@ -4,19 +4,21 @@ import React from "react";
 import { Button, Input, Link, Form, Divider } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { signIn } from "next-auth/react";
+import { useGenericSubmitHandler } from "../form/formSubmitHandler";
 
 export default function Login() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { handleSubmit, loading } = useGenericSubmitHandler(async (data) => {
     const res = await signIn("credentials", {
       redirect: false,
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
+      email: data.email,
+      password: data.password,
+      callbackUrl: "/app/dashboard",
     });
-  };
+    console.log(res);
+  });
   const handleGithubLogin = async () =>
     await signIn("github", { callbackUrl: "/app/dashboard" });
   const handleGoogleLogin = async () =>
@@ -36,7 +38,7 @@ export default function Login() {
         <Form
           className="flex flex-col gap-3"
           validationBehavior="native"
-          onSubmit={submitHandler}
+          onSubmit={handleSubmit}
         >
           <Input
             isRequired
@@ -78,7 +80,13 @@ export default function Login() {
               Forgot password?
             </Link>
           </div>
-          <Button className="w-full" color="primary" type="submit">
+          <Button
+            className="w-full"
+            color="primary"
+            type="submit"
+            isLoading={loading}
+            isDisabled={loading}
+          >
             Sign In
           </Button>
         </Form>

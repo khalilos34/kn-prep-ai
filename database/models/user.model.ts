@@ -18,7 +18,7 @@ export interface IUser extends Document {
   }[];
   subscriptions: {
     id: string;
-    customer: string;
+    customerId: string;
     created: Date;
     status: string;
     startDate: Date;
