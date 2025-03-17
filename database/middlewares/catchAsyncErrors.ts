@@ -1,4 +1,4 @@
-type handleFunction = (...args: any[]) => Promise<any>;
+type handlerFunction = (...args: any[]) => Promise<any>;
 
 interface IvalidationError {
   message: string;
@@ -25,10 +25,10 @@ const extractErrors = (error: any) => {
   };
 };
 export const catchAsyncErrors =
-  (handler: handleFunction) =>
-  async (...args: any) => {
+  (handler: handlerFunction) =>
+  async (...args: any[]) => {
     try {
-      await handler(...args);
+      return await handler(...args);
     } catch (error: any) {
       const { message, statusCode } = extractErrors(error);
       return {
