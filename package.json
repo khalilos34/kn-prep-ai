@@ -25,6 +25,7 @@
     "recharts": "^2.15.1"
   },
   "devDependencies": {
+    "@react-types/shared": "^3.28.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
